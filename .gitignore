@@ -1,0 +1,12 @@
+node_modules/
+.cache/
+.next/
+dist/
+build/
+*.log
+.env*
+_backup/
+attached_assets/
+*.tgz
+*.tar.gz
+.DS_Store
