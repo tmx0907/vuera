@@ -1,0 +1,18 @@
+# build / 덤프 / 첨부물 (무거움)
+dist/
+_backup/
+attached_assets/
+temp/
+openssh/
+*.tgz
+*.log
+*.mp4
+
+# node / OS 잡파일
+node_modules/
+npm-debug.log*
+.DS_Store
+
+# replit 파일
+.replit
+replit.md
