@@ -894,6 +894,8 @@ import compression from "compression";
 import cors2 from "cors";
 
 // server/routes.ts
+import express from "express";
+import cors from "cors";
 import { createServer } from "http";
 
 // server/lib/supabaseAdmin.ts
@@ -1162,7 +1164,8 @@ function formatDatingDialogueAdvanced(raw) {
 }
 
 // server/services/languageService.ts
-var openai = new OpenAI2({ apiKey: process.env.OPENAI_API_KEY });
+import OpenAI from "openai";
+var openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 function detectLanguage(text2) {
   const cleanText = text2.toLowerCase().trim();
   if (/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(text2)) return "ko";
@@ -2106,11 +2109,11 @@ function withTimeout(p, ms, onTimeout) {
   });
 }
 async function registerRoutes(app2) {
-  app2.use(cors2({
+  app2.use(cors({
     origin: process.env.NODE_ENV === "production" ? [/\.replit\.app$/, /localhost/, /127\.0\.0\.1/] : true,
     credentials: true
   }));
-  app2.use(express3.json({
+  app2.use(express.json({
     limit: "10mb",
     type: ["application/json", "text/plain"]
   }));
@@ -2318,6 +2321,7 @@ Please respond with valid json format only.` : prompt
 }
 
 // server/vite.ts
+import express2 from "express";
 import fs from "fs";
 import path2 from "path";
 import { createServer as createViteServer, createLogger } from "vite";
@@ -2328,7 +2332,7 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 var vite_config_default = defineConfig({
   plugins: [react()],
-  resolve: { alias: { "@": path.resolve(".", "src") } },
+  resolve: { alias: { "@": path.resolve(__dirname, "src") } },
   build: {
     outDir: "dist",
     emptyOutDir: true,
@@ -2411,7 +2415,8 @@ function validateEnvironment() {
 }
 async function testProductionServices() {
   try {
-    const openai2 = new OpenAI2({ apiKey: process.env.OPENAI_API_KEY });
+    const { OpenAI: OpenAI3 } = await import("openai");
+    const openai2 = new OpenAI3({ apiKey: process.env.OPENAI_API_KEY });
     console.log("=== TESTING PRODUCTION SERVICES ===");
     console.log("Testing OpenAI API...");
     await openai2.chat.completions.create({
