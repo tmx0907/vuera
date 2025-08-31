@@ -2556,12 +2556,6 @@ async function startServer() {
         healthy ? "PASS" : "FAIL"
       );
     }
-    const port = Number(process.env.PORT) || 5e3;
-    server.listen(port, "0.0.0.0", () => {
-      log(`serving on port ${port}`);
-    });
-    process.on("SIGINT", shutdown2);
-    process.on("SIGTERM", shutdown2);
   } catch (error) {
     console.error("\u274C Server startup failed:", error);
     process.exit(1);
@@ -2579,3 +2573,14 @@ startServer().catch((error) => {
   console.error("Failed to start server:", error);
   process.exit(1);
 });
+module.exports = function mount(app) {
+  // 기존에 setupTestRoutes, registerRoutes 등으로 라우트를 붙였잖아요?
+  // 그 로직을 이 함수 안에 넣으면 됩니다.
+
+  // 예시: 만약 기존에 registerRoutes(app) 이런 게 있었다면:
+  registerRoutes(app).catch((err) => {
+    console.error("Failed to mount routes:", err);
+  });
+
+  // 그리고 개발 모드에서만 필요한 setupVite 같은 건 빼도 돼요 (Render는 production만 돌기 때문).
+};
