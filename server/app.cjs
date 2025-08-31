@@ -2569,19 +2569,20 @@ process.on("unhandledRejection", (reason, promise) => {
   console.error("UnhandledRejection at:", promise, "reason:", reason);
   process.exit(1);
 });
+
+// ❌ 여기서 서버를 직접 켜면 안 됨 → 주석 처리/삭제
 // startServer().catch((error) => {
 //   console.error("Failed to start server:", error);
 //   process.exit(1);
 // });
 
+// ✅ 대신 mount 함수로 내보내기
 module.exports = function mount(app) {
-  // 기존에 setupTestRoutes, registerRoutes 등으로 라우트를 붙였잖아요?
-  // 그 로직을 이 함수 안에 넣으면 됩니다.
-
-  // 예시: 만약 기존에 registerRoutes(app) 이런 게 있었다면:
+  // 여기에 기존 라우트/미들웨어를 app에 연결
   registerRoutes(app).catch((err) => {
     console.error("Failed to mount routes:", err);
   });
 
-  // 그리고 개발 모드에서만 필요한 setupVite 같은 건 빼도 돼요 (Render는 production만 돌기 때문).
+  // 개발 전용 setupVite 같은 건 빼도 OK
+  setupTestRoutes(app);
 };
