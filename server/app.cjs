@@ -2569,10 +2569,11 @@ process.on("unhandledRejection", (reason, promise) => {
   console.error("UnhandledRejection at:", promise, "reason:", reason);
   process.exit(1);
 });
-startServer().catch((error) => {
-  console.error("Failed to start server:", error);
-  process.exit(1);
-});
+// startServer().catch((error) => {
+//   console.error("Failed to start server:", error);
+//   process.exit(1);
+// });
+
 module.exports = function mount(app) {
   // 기존에 setupTestRoutes, registerRoutes 등으로 라우트를 붙였잖아요?
   // 그 로직을 이 함수 안에 넣으면 됩니다.
