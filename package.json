@@ -4,7 +4,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node index.js",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
     "openai": "^4.0.0",
@@ -27,8 +31,17 @@
     "drizzle-zod": "latest",
     "postgres": "^3.0.0",
     "pg": "^8.0.0",
-    "vite": "^4.0.0",
-    "@vitejs/plugin-react": "^4.0.0",
     "nanoid": "^4.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
