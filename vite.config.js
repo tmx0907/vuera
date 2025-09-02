@@ -1,10 +1,11 @@
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default {
-  root: 'public',
+export default defineConfig({
   plugins: [react()],
+  root: 'public',
   build: {
     outDir: '../dist',
     emptyOutDir: true
   }
-}
+})
