@@ -2576,13 +2576,13 @@ process.on("unhandledRejection", (reason, promise) => {
 //   process.exit(1);
 // });
 
-// ✅ 대신 mount 함수로 내보내기
-module.exports = function mount(app) {
-  // 여기에 기존 라우트/미들웨어를 app에 연결
-  registerRoutes(app).catch((err) => {
+// ESM 파일이므로 export default 를 써야 합니다.
+export default async function mount(app) {
+  try {
+    // 라우트/미들웨어만 붙이기 (listen 금지)
+    await registerRoutes(app);
+    setupTestRoutes(app); // 내부에서 NODE_ENV 체크하므로 호출만 해도 됨
+  } catch (err) {
     console.error("Failed to mount routes:", err);
-  });
-
-  // 개발 전용 setupVite 같은 건 빼도 OK
-  setupTestRoutes(app);
-};
+  }
+}
