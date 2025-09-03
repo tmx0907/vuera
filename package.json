@@ -6,9 +6,9 @@
     "node": ">=18.0.0"
   },
   "scripts": {
+    "dev": "vite",
     "build": "vite build",
-    "start": "node index.cjs",
-    "dev": "node server/index.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.0.0",
